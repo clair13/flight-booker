@@ -4,4 +4,11 @@ class Flight < ApplicationRecord
 
   has_many :bookings
   has_many :passengers, through: :passenger_bookings
+
+  def self.dates_list
+    dates = Flight.all.order(departure_date: :asc)
+    dates.map { |d| d.departure_date.strftime("%d/%m/%Y")}.uniq
+  end
+
+  
 end
