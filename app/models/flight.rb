@@ -10,5 +10,14 @@ class Flight < ApplicationRecord
     dates.map { |d| d.departure_date.strftime("%d/%m/%Y")}.uniq
   end
 
-  
+  def self.search(dep,arr,date)
+    Flight.where(departure_airport_id: dep, arrival_airport_id: arr, departure_date: Flight.adjusted_date(date))
+  end
+
+  def self.adjusted_date(date)
+    unless  date.nil?
+      date = date.to_date
+      date.beginning_of_day..date.end_of_day
+    end
+  end
 end
