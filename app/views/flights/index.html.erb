@@ -1,2 +1,35 @@
-<h1>Flights#index</h1>
-<p>Find me in app/views/flights/index.html.erb</p>
+
+
+<div class="row search">
+  <div class="col-md-6 col-md-3">
+    <h2>Search for a flight</h2>
+
+      <%= form_with(model: @flight, method: :get) do |f| %>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-2 text center">
+          <%= f.label :departure_airport_id, "Departure Airport" %>
+          <%= f.select(:departure_airport_id, options_for_select(@airports, @departure), class: "form-control") %>
+        </div>
+         <div class="col-md-4 col-md-offset-2 text center">
+          <%= f.label :arrival_airport_id, "Arrival Airport" %>
+          <%= f.select(:arrival_airport_id, options_for_select(@airports, @arrival), class: "form-control") %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-2 text-center">
+          <%= f.label :departure_date, "Departure Date" %>
+          <%= f.select(:departure_date, options_for_select(@dates, @departure_date), class: "form-control") %>
+        </div>
+        <div class="col-md-4 col-md-offset-2 text-center">
+          <%= f.label :passengers, "Number of passengers" %>
+          <%= f.select(:passengers, options_for_select(@passenger_selection, @passengers), class: "form-control") %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <%= f.submit "Search", class: "form-control btn btn-primary" %>
+        </div>
+      </div>
+      <% end %>
+  </div> 
+</div>

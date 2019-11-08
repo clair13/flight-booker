@@ -3,7 +3,7 @@ class FlightsController < ApplicationController
     @flight = Flight.new
     @airports = Airport.all.map { |airport| [airport.abbreviation, airport.name]}
     @dates = Flight.dates_list
-    @passenger_selection = [1,2,3,4,]
+    @passenger_selection = [1,2,3,4]
     @departure = params[:departure_airport_id]
     @arrival = params[:arrival_airport_id]
     @departure_date = params[:departure_date]
