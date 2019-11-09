@@ -33,3 +33,38 @@
       <% end %>
   </div> 
 </div>
+
+<% unless @flights.empty? %>
+  <%= form_tag new_booking_path, method: :get do %>
+    <div class="row" id="form-flight">
+      <div class="col-md-8 col-md-offset-2">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Flight ID</th>
+              <th>Departure</th>
+              <th>Arrival</th>
+              <th>Date</th>
+              <th>Arrival Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @flights.each do |f| %>
+              <tr>
+                <td><%= radio_button_tag(:flight_id, flight.id ,class: "flight-selection")%></td>
+                <td><%= f.id %></td>
+                <td><%= f.departure_airport.abbreviation %></td>
+                <td><%= f.arrival_airport.abbreviation %></td>
+                <td><%= f.departure_date("%d/%m/%Y") %></td>
+                <td><%= f.arrival_date("%d/%m/%Y") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+                <%= hidden_field_tag(:passengers, params[:passengers]) %>
+                <%= submit_tag "Select Flight", class: "btn btn-success col-md-4 col-md-offset-8" %>
+            <% end %>
+      </div>
+    </div>
+<% end %>
