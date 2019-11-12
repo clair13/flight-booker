@@ -9,7 +9,7 @@ class FlightsController < ApplicationController
     @departure_date = params[:departure_date]
     @passengers = params[:passengers]
 
-    @flights = Flight.search(@departure, @arrival, @departure_date)
+    @flights = Flight.search(params[:departure_airport_id], params[:arrival_airport_id], params[:departure_date])
 
     if params[:submit] == "Search"
       if @departure == @arrival
