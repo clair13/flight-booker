@@ -1,28 +1,28 @@
 
 
-<div class="row search">
-  <div class="col-md-6 col-md-3">
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 text-center">
     <h2>Search for a flight</h2>
 
       <%= form_with(model: @flight, method: :get) do |f| %>
       <div class="row">
         <div class="col-md-4 col-md-offset-2 text center">
           <%= f.label :departure_airport_id, "Departure Airport" %>
-          <%= f.select(:departure_airport_id, options_for_select(@airports, @departure), class: "form-control") %>
+          <%= f.select(:departure_airport_id, options_for_select(@airports), class: "form-control") %>
         </div>
          <div class="col-md-4 col-md-offset-2 text center">
           <%= f.label :arrival_airport_id, "Arrival Airport" %>
-          <%= f.select(:arrival_airport_id, options_for_select(@airports, @arrival), class: "form-control") %>
+          <%= f.select(:arrival_airport_id, options_for_select(@airports), class: "form-control") %>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4 col-md-offset-2 text-center">
           <%= f.label :departure_date, "Departure Date" %>
-          <%= f.select(:departure_date, options_for_select(@dates, @departure_date), class: "form-control") %>
+          <%= f.select(:departure_date, options_for_select(@dates), class: "form-control") %>
         </div>
         <div class="col-md-4 col-md-offset-2 text-center">
           <%= f.label :passengers, "Number of passengers" %>
-          <%= f.select(:passengers, options_for_select(@passenger_selection, @passengers), class: "form-control") %>
+          <%= f.select(:passengers, options_for_select(@passenger_selection), class: "form-control") %>
         </div>
       </div>
       <div class="row">
@@ -35,8 +35,8 @@
 </div>
 
 
-<% unless @flights.empty? %>
-  <%= form_tag new_booking_path, method: :get do %>
+<% unless @flights.blank? %>
+  <%= form_tag(new_booking_path, method: :get) do |f| %>
     <div class="row" id="form-flight">
       <div class="col-md-8 col-md-offset-2">
         <table class="table table-striped table-bordered">
@@ -51,20 +51,20 @@
             </tr>
           </thead>
           <tbody>
-            <% @flights.each do |f| %>
+            <% @flights.each do |flight| %>
               <tr>
                 <td><%= radio_button_tag(:flight_id, flight.id ,class: "flight-selection")%></td>
-                <td><%= f.id %></td>
-                <td><%= f.departure_airport.abbreviation %></td>
-                <td><%= f.arrival_airport.abbreviation %></td>
-                <td><%= f.departure_date("%d/%m/%Y") %></td>
-                <td><%= f.arrival_date("%d/%m/%Y") %></td>
+                <td><%= flight.id %></td>
+                <td><%= flight.departure_airport.abbreviation %></td>
+                <td><%= flight.arrival_airport.abbreviation %></td>
+                <td><%= flight.departure_date("%d/%m/%Y") %></td>
+                <td><%= flight.arrival_date("%d/%m/%Y") %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
-                <%= hidden_field_tag(:passengers, params[:passengers]) %>
-                <%= submit_tag "Select Flight", class: "btn btn-success col-md-4 col-md-offset-8" %>
+                <%= f.hidden_field_tag(:passengers, params[:passengers]) %>
+                <%= f.submit_tag "Select Flight", class: "btn btn-success col-md-4 col-md-offset-8" %>
       </div>
     </div>
   <% end %>
